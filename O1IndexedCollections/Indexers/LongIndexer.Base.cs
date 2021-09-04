@@ -39,7 +39,7 @@ namespace O1IndexedCollections.Indexers {
                 if (!index.HasValue) {
                     indexes[internalIndex] = nextNewIndex;
                     index = nextNewIndex;
-                    nextNewIndex++; // this is not deterministic, consider project name rethink, revist after implementing non-base indexer
+                    nextNewIndex++;
                 }
 
                 return index.Value;
