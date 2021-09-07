@@ -10,6 +10,7 @@ namespace O1IndexedCollections {
         IEnumerable<(TKey1, uint)> Indexes { get; }
         uint GetOrAdd(TKey1 key1);
         bool TryGet(TKey1 key1, out uint index);
+        TKey1 GetKeyFromIndex(int index);
     }
 
     public interface IIndexLibrary<TKey1, TKey2> : IIndexLibrary, IEnumerable<(TKey1, TKey2)> {

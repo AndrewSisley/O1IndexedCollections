@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 namespace O1IndexedCollections.Indexers {
-    public partial class LongIndexer {
+    public partial class LongIndexer {// todo - early benchmarks are not much better than traditional dictionary, consider implementing as such (and preserving value array benefits)
         public class Base : IIndexer.Base<long>, IIndexLibrary<long> {
             public long Minimum { get; }
             public long Maximum { get; }
@@ -11,6 +11,7 @@ namespace O1IndexedCollections.Indexers {
 
             private uint nextNewIndex = 0;
             private readonly uint?[] indexes;
+            private readonly long[] keys;
 
             public IEnumerable<(long, uint)> Indexes {
                 get {
@@ -29,6 +30,7 @@ namespace O1IndexedCollections.Indexers {
                 Minimum = min;
                 Maximum = max;
                 indexes = new uint?[max - min + 1];
+                keys = new long[max - min + 1];
             }
 
 
@@ -38,6 +40,7 @@ namespace O1IndexedCollections.Indexers {
 
                 if (!index.HasValue) {
                     indexes[internalIndex] = nextNewIndex;
+                    keys[nextNewIndex] = key;
                     index = nextNewIndex;
                     nextNewIndex++;
                 }
@@ -67,6 +70,8 @@ namespace O1IndexedCollections.Indexers {
             }
 
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+            public long GetKeyFromIndex(int index) => keys[index];
         }
     }
 }

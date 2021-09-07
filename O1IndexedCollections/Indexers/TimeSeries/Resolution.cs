@@ -6,4 +6,8 @@ namespace O1IndexedCollections.Indexers.TimeSeries {
             Ticks = ticks;
         }
     }
+
+    public static class ResolutionExtensions {
+        public static long Align(this Resolution resolution, long ticks) => (ticks / resolution.Ticks) * resolution.Ticks;
+    }
 }

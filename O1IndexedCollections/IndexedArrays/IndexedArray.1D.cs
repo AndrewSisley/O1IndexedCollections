@@ -77,11 +77,9 @@ namespace O1IndexedCollections {
         }
 
         public IEnumerator<KeyValuePair<TKey1, TValue>> GetEnumerator() {
-            foreach (var item in IndexLibrary.Indexes) {
-                if (item.Item2 >= HasValueArray.Length) yield break;
-
-                if (HasValueArray[item.Item2]) {
-                    yield return new KeyValuePair<TKey1, TValue>(item.Item1, ValueArray[item.Item2]);
+            for (var i = 0; i < ValueArray.Length; i++) {
+                if (HasValueArray[i]) {
+                    yield return new KeyValuePair<TKey1, TValue>(IndexLibrary.GetKeyFromIndex(i), ValueArray[i]);
                 }
             }
         }

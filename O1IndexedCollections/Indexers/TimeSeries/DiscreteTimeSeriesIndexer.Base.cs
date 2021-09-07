@@ -42,6 +42,8 @@ namespace O1IndexedCollections.Indexers.TimeSeries {
 
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
+            public DateTime GetKeyFromIndex(int index) => new DateTime(Resolution.Align(index << numberOfInsignificantBits) + StartTime.Ticks);
+
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             private static long GetIndex(long startTicks, long endTicks, int numberOfInsignificantBits)
                 => (endTicks - startTicks) >> numberOfInsignificantBits;
